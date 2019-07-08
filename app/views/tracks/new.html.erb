@@ -1,0 +1,15 @@
+<h1>New Track</h1>
+
+<p>
+    <strong>Artist:</strong> 
+    <%= @artist.name %>
+</p>
+
+<p>
+    <strong>Album:</strong> 
+    <%= @album.title %>
+</p>
+
+<%= render partial: 'form', locals: { track: @track, album: @album} %>
+
+<%= link_to 'Back', tracks_path %>

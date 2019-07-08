@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @track.title %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= seconds_to_time(@track.length) %>
+</p>
+
+<% @albums.each do |album| %>
+  <p>
+    <strong>Album:</strong>
+    <%= link_to "#{album.title}", album %>
+  </p>
+<% end %>
+
+<% if user_signed_in? %>
+<%= link_to 'Edit', edit_track_path(@track) %> |
+<% end %>
+<%= link_to 'Tracks', tracks_path %>

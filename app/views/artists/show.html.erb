@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @artist.name %>
+</p>
+
+<p>
+  <strong>Yob:</strong>
+  <%= @artist.yob %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @artist.country %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @artist.description %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @artist.active %>
+</p>
+
+<% @albums.each do |album| %>
+  <p>
+    <strong>Album:</strong>
+    <%= link_to "#{album.title}", album %>
+  </p>
+<% end %>
+
+<% @comments.each do |comment| %>
+  <p>
+    <strong><%= User.find(comment.user_id).email %>:</strong>
+    <%= comment.comment %>
+
+    <% if User.find(comment.user_id) == current_user %>
+      <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+
+  </p>
+<% end %>
+
+<% if user_signed_in? %>
+  <hr>
+  <%= render partial: 'comments/form', locals: { comment: Comment.new(), user: current_user, artist: @artist } %>
+  <hr>
+  <%= render partial: 'albums/form', locals: { album: Album.new(), artist: @artist } %>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_artist_path(@artist) %> |
+<% end %>
+<%= link_to 'Artists', artists_path %>
