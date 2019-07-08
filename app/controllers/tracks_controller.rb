@@ -23,6 +23,7 @@ class TracksController < ApplicationController
     @track = Track.new
     @album = Album.find(params[:id])
     @artist = Artist.find(@album.artist_id)
+    @tracks = Track.joins(:albums).where('albums.artist_id' => @artist.id).where.not('albums.id' => @album.id).uniq
   end
 
   # GET /tracks/1/edit
@@ -33,11 +34,15 @@ class TracksController < ApplicationController
   # POST /tracks.json
   def create
     puts "CREATE TRACK"
-    @track = Track.create(title: params[:track][:title], length: params[:track][:length])
-    @album = Album.find(params[:track][:album])
-    AlbumTrack.create(album_id: @album.id, track_id: @track.id)
-    puts @album.title
-    
+    if params[:track][:id] == nil
+      @track = Track.create(title: params[:track][:title], length: params[:track][:length])
+      @album = Album.find(params[:track][:album])
+      AlbumTrack.create(album_id: @album.id, track_id: @track.id)
+    else
+      @track = Track.find(params[:track][:id])
+      @album = Album.find(params[:track][:album_id])
+      @album.tracks << @track
+    end
 
     respond_to do |format|
       if @track.save

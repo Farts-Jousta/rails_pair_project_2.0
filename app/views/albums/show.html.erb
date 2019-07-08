@@ -35,6 +35,5 @@
 <% if user_signed_in? %>
   <%= link_to 'New Track', "/tracks/new?id=#{@album.id}" %>
   |
-  <%= link_to 'Edit', edit_album_path(@album) %> |
+  <%= link_to 'Edit', edit_album_path(@album) %>
 <% end %>
-<%= link_to 'Albums', albums_path %>

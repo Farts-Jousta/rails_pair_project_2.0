@@ -45,13 +45,18 @@
 <% end %>
 
 <% if user_signed_in? %>
-  <hr>
-  <%= render partial: 'comments/form', locals: { comment: Comment.new(), user: current_user, artist: @artist } %>
-  <hr>
-  <%= render partial: 'albums/form', locals: { album: Album.new(), artist: @artist } %>
+  <table style="width:100%">
+    <tr>
+      <th><h2> Add Album </h2></th>
+      <th><h2> Leave Comment </h2></th>
+    </tr>
+    <tr>
+      <td> <%= render partial: 'albums/form', locals: { album: Album.new(), artist_id: @artist.id } %> </td>
+      <td> <%= render partial: 'comments/form', locals: { comment: Comment.new(), user: current_user, artist: @artist } %> </td>
+    </tr>
+  </table>
 <% end %>
 
 <% if user_signed_in? %>
-  <%= link_to 'Edit', edit_artist_path(@artist) %> |
+  <%= link_to 'Edit', edit_artist_path(@artist) %>
 <% end %>
-<%= link_to 'Artists', artists_path %>

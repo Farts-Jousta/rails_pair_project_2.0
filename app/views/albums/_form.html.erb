@@ -1,7 +1,8 @@
 <%= form_with(model: album, local: true) do |form| %>
   <% if album.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
+      <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved: 
+      <br> (You IDIOT!)</h2>
 
       <ul>
       <% album.errors.full_messages.each do |message| %>
@@ -27,8 +28,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :Artist %> 
-    <%= collection_select(:album, :artist_id, Artist.all, :id, :artist_name, prompt: true) %>
+    <%= form.hidden_field :artist_id, :value => artist_id %>
   </div>
 
   <div class="actions">

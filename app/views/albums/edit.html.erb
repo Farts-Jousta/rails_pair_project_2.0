@@ -1,6 +1,7 @@
 <h1>Editing Album</h1>
 
-<%= render 'form', album: @album %>
+<h3> Artist: <%= @artist.name %> </h3>
 
-<%= link_to 'Show', @album %> |
-<%= link_to 'Back', albums_path %>
+<%= render 'form', album: @album, artist_id: @artist.id %>
+
+<%= link_to 'Back', @album %>

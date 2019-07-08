@@ -10,6 +10,22 @@
     <%= @album.title %>
 </p>
 
-<%= render partial: 'form', locals: { track: @track, album: @album} %>
+<table style="width:100%">
+    <tr>
+        <th><h3>Create New Track</h3></th>
+        <th><h3>Add Existing Track</h3></th>
+    </tr>
+    <tr>
+        <td> <%= render partial: 'form', locals: { track: @track, album: @album} %> </td>
+        <td> <%= form_for Track.new do |f| %>
+            <%= f.label :track %>
+            <%= f.collection_select :id, @tracks,:id,:title, include_blank: true %>
+            <%= f.hidden_field :album_id, value: @album.id %>
+            <p>
+                <%= f.submit "Submit" %>
+            </p>
+        <% end %> </td>
+    </tr>
+</table>
 
-<%= link_to 'Back', tracks_path %>
+<%= link_to 'Back', @album %>
